@@ -7,9 +7,12 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import apiRoutes from './api/routes'
+import connectDB from './db';
 import * as middlewares from './middlewares';
 
 const app = express();
+
+connectDB()
 
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(helmet());

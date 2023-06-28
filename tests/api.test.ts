@@ -13,11 +13,11 @@ describe('GET /api', () => {
     })
   });
 
-  it('responds with json message like Libary api service', async () => {
+  it('responds with json message like Library api service', async () => {
     request(app)
       .get('/api')
       .then((response) => {
-        expect(response.body).toEqual({message:'Libary api service'});
+        expect(response.body).toEqual({message:'Library api service'});
       });
   });
 });

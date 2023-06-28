@@ -1,11 +1,12 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
+
 import MessageResponse from '../../interfaces/MessageResponse';
 
 const router = Router();
 
-router.get<{}, MessageResponse>('/', (req, res)=>{
+router.get('/', (req:Request, res:Response<MessageResponse>)=>{
     res.json({
-        message: 'Libary api service',
+        message: 'Library api service',
     });
 });
 
