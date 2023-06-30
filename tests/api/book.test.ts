@@ -93,3 +93,39 @@ describe('GET /api/books/:id', () => {
         .expect(404);
     });
 });
+
+describe('PUT /api/books/:id', () => {
+  it('responds with an invalid ObjectId error', async () => {
+    await request(app)
+      .put('/api/books/adsfadsfasdfasdf')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(422);
+  });
+  it('responds with a not found error', async () => {
+    await request(app)
+      .put('/api/books/6306d061477bdb46f9c57fa4')
+      .set('Accept', 'application/json')
+      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: false})
+      .expect('Content-Type', /json/)
+      .expect(404);
+  });
+  it('responds with a single todo', async () =>
+    request(app)
+      .put(`/api/books/${id}`)
+      .set('Accept', 'application/json')
+      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: true})
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.id).toBe(id);
+        expect(response.body).toHaveProperty('name');
+        expect(response.body.name).toBe('Learn TypeScript');
+        expect(response.body).toHaveProperty('isbn');
+        expect(response.body).toHaveProperty('lend');
+        expect(response.body.lend).toBe(true);
+      }),
+  );
+});
