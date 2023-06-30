@@ -6,11 +6,10 @@ export class BookService {
 
     constructor(){
         this.bookRepository = new BookRepository();
-        // this.getBooks = this.getBooks.bind(this)
     }
 
-    async findBooks() {
-        const books = await this.bookRepository.findBooks();
+    async findAll() {
+        const books = await this.bookRepository.findAll();
         return books;
     }
 }

@@ -6,6 +6,6 @@ const router = Router();
 
 const bookController = new BookController()
 
-router.get('/', bookController.getBooks);
+router.get('/', bookController.findAll);
 
 export default router;

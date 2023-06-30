@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
+import { Book } from '../../db/models/book.model';
 import { BookService } from '../services/book.service';
 
 export class BookController {
@@ -7,11 +8,15 @@ export class BookController {
 
     constructor(){
         this.bookService = new BookService();
-        this.getBooks = this.getBooks.bind(this)
+        this.findAll = this.findAll.bind(this)
     }
 
-    async getBooks(req: Request, res: Response) {
-        const books = await this.bookService.findBooks();
-        res.status(200).json({books});
+    async findAll(req: Request, res: Response<Book[]>, next: NextFunction) {
+      try {
+        const books = await this.bookService.findAll();
+        res.status(200).json(books);
+      } catch (error) {
+        next(error);
       }
+    }
 }
