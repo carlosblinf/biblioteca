@@ -3,12 +3,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "airbnb-base",
-    "airbnb-typescript/base",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:@typescript-eslint/recommended", "prettier"],
   "overrides": [
     {
       "files": ["test/**"],
@@ -30,6 +25,7 @@
   "rules": {
     "no-console": "off",
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-redeclare": "warn",
     // to enforce using type for object type definitions, can be type or interface
     // "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "simple-import-sort/imports": "error",
@@ -38,6 +34,7 @@
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     "import/prefer-default-export": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/extensions": "off"
   }
 }
