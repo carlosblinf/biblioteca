@@ -22,15 +22,11 @@ export class BookController {
       }
     }
 
-    async createOne(req: Request, res: Response<Book>, next: NextFunction) {
+    async createOne(req: Request<object, Book, BookSchema>, res: Response<Book>, next: NextFunction) {
       try {
-        const validateData = BookSchema.parse(req.body);
-        const book = await this.bookService.createOne(validateData);
+        const book = await this.bookService.createOne(req.body);
         res.status(201).json(book);
       } catch (error) {
-        if (error instanceof ZodError) {
-          res.status(422);
-        }
         next(error);
       }
     }

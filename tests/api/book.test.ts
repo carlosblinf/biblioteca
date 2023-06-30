@@ -5,7 +5,7 @@ import { sequelizeConnection } from '../../src/db';
 import { Book } from '../../src/db/models/book.model';
 
 beforeAll(async () => {
-    await sequelizeConnection.sync({force: true});
+    await sequelizeConnection.sync({force: true}).catch((err)=>console.log("bad DB connection", err));
     await Book.create({name: "Learn React", isbn:"305-598-21508-8", lend: false});
     await Book.create({name: "The Truth", isbn:"443-598-21508-8", lend: false});
   });

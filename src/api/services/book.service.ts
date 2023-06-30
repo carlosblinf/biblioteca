@@ -1,4 +1,4 @@
-import { Book, BookInput } from "../../db/models/book.model";
+import { BookSchema } from "../../db/models/book.model";
 import { BookRepository } from "../repositories/book.repository";
 
 export class BookService {
@@ -12,7 +12,7 @@ export class BookService {
         return this.bookRepository.findAll();
     }
 
-    async createOne(data: BookInput) {
+    async createOne(data: BookSchema) {
         return this.bookRepository.createOne(data);
     }
 }

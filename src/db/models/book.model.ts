@@ -1,4 +1,4 @@
-import { DataTypes,  Model, Optional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import * as z from 'zod';
 
 import {sequelizeConnection } from '../index';
@@ -12,9 +12,8 @@ const BookSchema = z.object({
 });
 
 type BookSchema = z.infer<typeof BookSchema>;
-type BookInput = Optional<BookSchema, 'id'>;
 
-class Book extends Model<BookSchema, BookInput> {}
+class Book extends Model<BookSchema> {}
 Book.init({
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -39,4 +38,4 @@ Book.init({
 });
 
 
-export  { Book, BookInput, BookSchema }
+export  { Book, BookSchema }

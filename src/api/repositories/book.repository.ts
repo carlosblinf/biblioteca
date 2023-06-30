@@ -1,4 +1,4 @@
-import { Book, BookInput } from "../../db/models/book.model";
+import { Book, BookSchema } from "../../db/models/book.model";
 
 export class BookRepository {
     
@@ -7,7 +7,7 @@ export class BookRepository {
         return books;
     }
 
-    async createOne(data: BookInput): Promise<Book> {
+    async createOne(data: BookSchema): Promise<Book> {
         const book = await Book.create<Book>(data);
         return book;
     }
