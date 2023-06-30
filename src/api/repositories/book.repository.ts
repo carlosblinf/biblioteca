@@ -1,4 +1,4 @@
-import { Book, BookSchema } from "../../db/models/book.model";
+import { Book, BookSchema, BookUpdate } from "../../db/models/book.model";
 
 export class BookRepository {
     
@@ -15,5 +15,10 @@ export class BookRepository {
     async findOne(id:number): Promise<Book | null> {
         const book = await Book.findByPk(id);
         return book;
+    }
+
+    async updateOne(old:Book, update:BookUpdate): Promise<Book | null> {
+        const saved = await old.set(update);
+        return saved;
     }
 }

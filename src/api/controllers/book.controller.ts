@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 
-import { Book, BookSchema } from '../../db/models/book.model';
+import { Book, BookSchema, BookUpdate } from '../../db/models/book.model';
 import { NotFoundError } from '../../interfaces/NotFoundError';
 import { ParamsWithId } from '../../interfaces/ParamWithId';
 import { BookService } from '../services/book.service';
@@ -14,6 +14,7 @@ export class BookController {
         this.findAll = this.findAll.bind(this)
         this.createOne = this.createOne.bind(this)
         this.findOne = this.findOne.bind(this)
+        this.updateOne = this.updateOne.bind(this)
     }
 
     async findAll(req: Request, res: Response<Book[]>, next: NextFunction) {
@@ -41,6 +42,23 @@ export class BookController {
           throw new Error('Unprocessable Entity, valid id no found');
         }
         const book = await this.bookService.findOne(+req.params.id);
+        res.status(200).json(book);
+      } catch (error) {
+        if (error instanceof NotFoundError) {
+          res.status(error.getCode)
+        }
+        next(error);
+      }
+    }
+
+    async updateOne(req: Request<ParamsWithId, Book, BookUpdate>, res: Response<Book>, next: NextFunction) {
+      try {
+        if (req.params.id === undefined || Number.isNaN(+req.params.id)) {
+          res.status(422)
+          throw new Error('Unprocessable Entity, valid id no found');
+        }
+        
+        const book = await this.bookService.updateOne(+req.params.id, req.body);
         res.status(200).json(book);
       } catch (error) {
         if (error instanceof NotFoundError) {

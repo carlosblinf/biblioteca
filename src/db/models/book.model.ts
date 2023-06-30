@@ -13,6 +13,14 @@ const BookSchema = z.object({
 
 type BookSchema = z.infer<typeof BookSchema>;
 
+const BookUpdate = z.object({
+    name: z.string().min(3, { message: 'name is required and more than 3' }).optional(),
+    isbn: z.string().min(6, { message: 'ISBN is required and more than 6' }).optional(),
+    lend: z.boolean().optional(),
+  });;
+
+type BookUpdate = z.infer<typeof BookUpdate>;
+
 class Book extends Model<BookSchema> {}
 Book.init({
     id: {
@@ -38,4 +46,4 @@ Book.init({
 });
 
 
-export  { Book, BookSchema }
+export  { Book, BookSchema, BookUpdate }
