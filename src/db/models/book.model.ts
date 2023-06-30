@@ -5,10 +5,10 @@ import {sequelizeConnection } from '../index';
 
 
 const BookSchema = z.object({
-  id: z.number().positive(),
+  id: z.number().positive().optional(),
   name: z.string().min(3, { message: 'name is required and more than 3' }),
-  isbn: z.string().min(6, { message: 'ISBN is required and more than 3' }),
-  lend: z.boolean(),
+  isbn: z.string().min(6, { message: 'ISBN is required and more than 6' }),
+  lend: z.boolean().optional(),
 });
 
 type BookSchema = z.infer<typeof BookSchema>;
@@ -26,10 +26,13 @@ Book.init({
         allowNull: false
     },
     isbn: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
     },
     lend: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
   sequelize: sequelizeConnection,

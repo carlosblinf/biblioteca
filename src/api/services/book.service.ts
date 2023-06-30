@@ -1,4 +1,4 @@
-import { Book } from "../../db/models/book.model";
+import { Book, BookInput } from "../../db/models/book.model";
 import { BookRepository } from "../repositories/book.repository";
 
 export class BookService {
@@ -9,7 +9,10 @@ export class BookService {
     }
 
     async findAll() {
-        const books = await this.bookRepository.findAll();
-        return books;
+        return this.bookRepository.findAll();
+    }
+
+    async createOne(data: BookInput) {
+        return this.bookRepository.createOne(data);
     }
 }
