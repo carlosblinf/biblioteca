@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { ZodError } from 'zod';
 
 import { Book, BookSchema } from '../../db/models/book.model';
 import { BookService } from '../services/book.service';
-import { ZodError } from 'zod';
 
 export class BookController {
     private bookService: BookService;

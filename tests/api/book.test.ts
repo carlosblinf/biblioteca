@@ -35,13 +35,27 @@ describe('POST /api/books', () => {
       .set('Accept', 'application/json')
       .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: false})
       .expect('Content-Type', /json/)
-      .expect(201)
       .then((response) => {
+        expect(response.statusCode).toBe(201);
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
-        expect(response.body.content).toBe('Learn TypeScript');
+        expect(response.body.name).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('isbn');
         expect(response.body).toHaveProperty('lend');
+      }),
+  );
+  it('responds with an error if the book is invalid', async () =>
+    request(app)
+      .post('/api/books')
+      .set('Accept', 'application/json')
+      .send({
+        name: '',
+        isbn:'3-598-21508-8'
+      })
+      .expect('Content-Type', /json/)
+      .expect(422)
+      .then((response) => {
+        expect(response.body).toHaveProperty('message');
       }),
   );
 });
