@@ -78,4 +78,18 @@ describe('GET /api/books/:id', () => {
         expect(response.body).toHaveProperty('lend');
       }),
   );
+  it('responds with an invalid ObjectId error', async () => {
+      await request(app)
+        .get('/api/books/asdsadsad')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(422);
+    });
+    it('responds with a not found error', async () => {
+      await request(app)
+        .get('/api/books/123456')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(404);
+    });
 });
