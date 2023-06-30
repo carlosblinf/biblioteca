@@ -21,4 +21,11 @@ export class BookRepository {
         const saved = await old.set(update);
         return saved;
     }
+
+    async deleteOne(id:number): Promise<boolean> {
+        const deletes = await Book.destroy({
+            where: {id}
+        });
+        return !!deletes;
+    }
 }

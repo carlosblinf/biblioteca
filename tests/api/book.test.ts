@@ -138,12 +138,12 @@ describe('DELETE /api/books/:id', () => {
       .expect('Content-Type', /json/)
       .expect(422);
   });
-  it('responds with a not found error', async () => {
+  it('responds with a not conflict error', async () => {
     await request(app)
       .delete('/api/books/12323')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(404);
+      .expect(409);
   });
   it('responds with a 204 status code', async () => {
     await request(app)

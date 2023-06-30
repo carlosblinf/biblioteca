@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { ZodError } from 'zod';
 
 import { Book, BookSchema, BookUpdate } from '../../db/models/book.model';
 import { NotFoundError } from '../../interfaces/NotFoundError';
@@ -15,6 +14,7 @@ export class BookController {
         this.createOne = this.createOne.bind(this)
         this.findOne = this.findOne.bind(this)
         this.updateOne = this.updateOne.bind(this)
+        this.deleteOne = this.deleteOne.bind(this)
     }
 
     async findAll(req: Request, res: Response<Book[]>, next: NextFunction) {
@@ -64,6 +64,19 @@ export class BookController {
         if (error instanceof NotFoundError) {
           res.status(error.getCode)
         }
+        next(error);
+      }
+    }
+
+    async deleteOne(req: Request<ParamsWithId, object, object>, res: Response, next: NextFunction) {
+      try {
+        if (req.params.id === undefined || Number.isNaN(+req.params.id)) {
+          res.status(422)
+          throw new Error('Unprocessable Entity, valid id no found');
+        }
+        await this.bookService.deleteOne(+req.params.id);
+        res.status(204).end();
+      } catch (error) {
         next(error);
       }
     }

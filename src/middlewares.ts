@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
+import { ConflictError } from "./interfaces/ConflictError";
+import { NotFoundError } from "./interfaces/NotFoundError";
 import { RequestValidators } from "./interfaces/RequestValidators";
 
 export function notFound(req: Request, res: Response, next: NextFunction) {
@@ -10,13 +12,19 @@ export function notFound(req: Request, res: Response, next: NextFunction) {
 }
 
 export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
-    const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
+    let statusCode = res.statusCode !== 200 ? res.statusCode : 500;
+
+    if (err instanceof NotFoundError || err instanceof ConflictError) {
+        statusCode = err.getCode;
+    }
+    
     res.status(statusCode);
     res.json({
         message: err.message,
         stack: process.env.NODE_ENV === 'development' ? err.stack : '',
     });
 }
+
 export function validateRequest(validators: RequestValidators) {
     return async (req:Request, res:Response, next:NextFunction) => {
         try {

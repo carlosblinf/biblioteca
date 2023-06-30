@@ -1,4 +1,5 @@
 import { BookSchema, BookUpdate } from "../../db/models/book.model";
+import { ConflictError } from "../../interfaces/ConflictError";
 import { NotFoundError } from "../../interfaces/NotFoundError";
 import { BookRepository } from "../repositories/book.repository";
 
@@ -30,6 +31,14 @@ export class BookService {
         const result = await this.bookRepository.updateOne(book, update);
         if (!result) {
             throw new NotFoundError('Book not updated');
+        }
+        return result;
+    }
+
+    async deleteOne(id:number) {
+        const result = await this.bookRepository.deleteOne(id);
+        if (!result) {
+            throw new ConflictError('Book not deleted');
         }
         return result;
     }
