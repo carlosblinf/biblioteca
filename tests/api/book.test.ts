@@ -28,6 +28,7 @@ describe('GET /api/books', () => {
   });
 });
 
+let id: number;
 describe('POST /api/books', () => {
   it('responds with an inserted object', async () =>
     request(app)
@@ -38,6 +39,7 @@ describe('POST /api/books', () => {
       .then((response) => {
         expect(response.statusCode).toBe(201);
         expect(response.body).toHaveProperty('id');
+        id = response.body.id;
         expect(response.body).toHaveProperty('name');
         expect(response.body.name).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('isbn');
@@ -56,6 +58,24 @@ describe('POST /api/books', () => {
       .expect(422)
       .then((response) => {
         expect(response.body).toHaveProperty('message');
+      }),
+  );
+});
+
+describe('GET /api/books/:id', () => {
+  it('responds with a single book', async () =>
+    request(app)
+      .get(`/api/books/${id}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.id).toBe(id);
+        expect(response.body).toHaveProperty('name');
+        expect(response.body.name).toBe('Learn TypeScript');
+        expect(response.body).toHaveProperty('isbn');
+        expect(response.body).toHaveProperty('lend');
       }),
   );
 });
