@@ -104,7 +104,7 @@ describe('PUT /api/books/:id', () => {
   });
   it('responds with a not found error', async () => {
     await request(app)
-      .put('/api/books/6306d061477bdb46f9c57fa4')
+      .put('/api/books/12323')
       .set('Accept', 'application/json')
       .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: false})
       .expect('Content-Type', /json/)
@@ -128,4 +128,32 @@ describe('PUT /api/books/:id', () => {
         expect(response.body.lend).toBe(true);
       }),
   );
+});
+
+describe('DELETE /api/books/:id', () => {
+  it('responds with an invalid ObjectId error', async () => {
+    await request(app)
+      .delete('/api/books/adsfadsfasdfasdf')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(422);
+  });
+  it('responds with a not found error', async () => {
+    await request(app)
+      .delete('/api/books/12323')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404);
+  });
+  it('responds with a 204 status code', async () => {
+    await request(app)
+      .delete(`/api/books/${id}`)
+      .expect(204);
+  });
+  it('responds with a not found error', async () => {
+    await request(app)
+      .get(`/api/books/${id}`)
+      .set('Accept', 'application/json')
+      .expect(404);
+  });
 });
