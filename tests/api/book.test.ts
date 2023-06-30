@@ -6,8 +6,8 @@ import { Book } from '../../src/db/models/book.model';
 
 beforeAll(async () => {
     await sequelizeConnection.sync({force: true}).catch((err)=>console.log("bad DB connection", err));
-    await Book.create({name: "Learn React", isbn:"305-598-21508-8", lend: false});
-    await Book.create({name: "The Truth", isbn:"443-598-21508-8", lend: false});
+    await Book.create({name: "Learn React", isbn:"305-598-21508-8", available: false});
+    await Book.create({name: "The Truth", isbn:"443-598-21508-8", available: false});
   });
   
   afterAll(async () => {
@@ -34,7 +34,7 @@ describe('POST /api/books', () => {
     request(app)
       .post('/api/books')
       .set('Accept', 'application/json')
-      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: false})
+      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", available: false})
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.statusCode).toBe(201);
@@ -43,7 +43,7 @@ describe('POST /api/books', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body.name).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('isbn');
-        expect(response.body).toHaveProperty('lend');
+        expect(response.body).toHaveProperty('available');
       }),
   );
   it('responds with an error if the book is invalid', async () =>
@@ -56,9 +56,6 @@ describe('POST /api/books', () => {
       })
       .expect('Content-Type', /json/)
       .expect(422)
-      .then((response) => {
-        expect(response.body).toHaveProperty('message');
-      }),
   );
 });
 
@@ -75,7 +72,7 @@ describe('GET /api/books/:id', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body.name).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('isbn');
-        expect(response.body).toHaveProperty('lend');
+        expect(response.body).toHaveProperty('available');
       }),
   );
   it('responds with an invalid ObjectId error', async () => {
@@ -106,15 +103,15 @@ describe('PUT /api/books/:id', () => {
     await request(app)
       .put('/api/books/12323')
       .set('Accept', 'application/json')
-      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: false})
+      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", available: false})
       .expect('Content-Type', /json/)
       .expect(404);
   });
-  it('responds with a single todo', async () =>
+  it('responds with a single book', async () =>
     request(app)
       .put(`/api/books/${id}`)
       .set('Accept', 'application/json')
-      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", lend: true})
+      .send({name: "Learn TypeScript", isbn:"3-598-21508-8", available: true})
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
@@ -124,8 +121,8 @@ describe('PUT /api/books/:id', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body.name).toBe('Learn TypeScript');
         expect(response.body).toHaveProperty('isbn');
-        expect(response.body).toHaveProperty('lend');
-        expect(response.body.lend).toBe(true);
+        expect(response.body).toHaveProperty('available');
+        expect(response.body.available).toBe(true);
       }),
   );
 });

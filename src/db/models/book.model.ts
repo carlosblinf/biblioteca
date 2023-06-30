@@ -8,7 +8,7 @@ const BookSchema = z.object({
   id: z.number().positive().optional(),
   name: z.string().min(3, { message: 'name is required and more than 3' }),
   isbn: z.string().min(6, { message: 'ISBN is required and more than 6' }),
-  lend: z.boolean().optional(),
+  available: z.boolean().optional(),
 });
 
 type BookSchema = z.infer<typeof BookSchema>;
@@ -16,7 +16,7 @@ type BookSchema = z.infer<typeof BookSchema>;
 const BookUpdate = z.object({
     name: z.string().min(3, { message: 'name is required and more than 3' }).optional(),
     isbn: z.string().min(6, { message: 'ISBN is required and more than 6' }).optional(),
-    lend: z.boolean().optional(),
+    available: z.boolean().optional(),
   });;
 
 type BookUpdate = z.infer<typeof BookUpdate>;
@@ -37,9 +37,9 @@ Book.init({
         allowNull: false,
         unique: true,
     },
-    lend: {
+    available: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
     }
 }, {
   sequelize: sequelizeConnection,
