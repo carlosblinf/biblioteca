@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
+import { injectable } from 'tsyringe';
 
 import { Book, BookSchema, BookUpdate } from '../../db/models/book.model';
-import { NotFoundError } from '../../interfaces/NotFoundError';
 import { ParamsWithId } from '../../interfaces/ParamWithId';
 import { BookService } from '../services/book.service';
 
+@injectable()
 export class BookController {
     private bookService: BookService;
 
-    constructor(){
-        this.bookService = new BookService();
+    constructor(bookService: BookService){
+        this.bookService = bookService;
         this.findAll = this.findAll.bind(this)
         this.createOne = this.createOne.bind(this)
         this.findOne = this.findOne.bind(this)

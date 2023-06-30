@@ -1,3 +1,5 @@
+import { singleton } from "tsyringe";
+
 import { Book } from "../../db/models/book.model";
 import { Lend, LendUpdate } from "../../db/models/lend.model";
 import { Reader } from "../../db/models/reader.model";

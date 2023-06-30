@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
+import { injectable } from 'tsyringe';
 
 import { Reader, ReaderSchema, ReaderUpdate } from '../../db/models/reader.model';
-import { NotFoundError } from '../../interfaces/NotFoundError';
 import { ParamsWithId } from '../../interfaces/ParamWithId';
 import { ReaderService } from '../services/reader.service';
 
+@injectable()
 export class ReaderController {
     private readerService: ReaderService;
 
-    constructor(){
-        this.readerService = new ReaderService();
+    constructor(readerService: ReaderService){
+        this.readerService = readerService;
         this.findAll = this.findAll.bind(this)
         this.createOne = this.createOne.bind(this)
         this.findOne = this.findOne.bind(this)

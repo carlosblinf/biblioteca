@@ -1,3 +1,5 @@
+import { singleton } from "tsyringe";
+
 import { Reader, ReaderSchema, ReaderUpdate } from "../../db/models/reader.model";
 
 export class ReaderRepository {

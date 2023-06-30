@@ -1,13 +1,16 @@
+import { injectable } from 'tsyringe';
+
 import { ReaderSchema, ReaderUpdate } from "../../db/models/reader.model";
 import { ConflictError } from "../../interfaces/ConflictError";
 import { NotFoundError } from "../../interfaces/NotFoundError";
 import { ReaderRepository } from "../repositories/reader.repository";
 
+@injectable()
 export class ReaderService {
     private readerRepository: ReaderRepository;
 
-    constructor(){
-        this.readerRepository = new ReaderRepository();
+    constructor(readerRepository: ReaderRepository){
+        this.readerRepository = readerRepository;
     }
 
     async findAll() {

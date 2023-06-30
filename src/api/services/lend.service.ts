@@ -1,9 +1,13 @@
+
+import { injectable } from 'tsyringe';
+
 import { ConflictError } from "../../interfaces/ConflictError";
 import { NotFoundError } from "../../interfaces/NotFoundError";
 import { LendRepository } from "../repositories/lend.repository";
 import { BookService } from "./book.service";
 import { ReaderService } from "./reader.service";
 
+@injectable()
 export class LendService {
     private lendRepository: LendRepository;
 
@@ -11,10 +15,10 @@ export class LendService {
 
     private readerService: ReaderService;
 
-    constructor(){
-        this.lendRepository = new LendRepository();
-        this.bookService = new BookService();
-        this.readerService = new ReaderService();
+    constructor( lendRepository: LendRepository, bookService: BookService, readerService: ReaderService ){
+        this.lendRepository = lendRepository;
+        this.bookService = bookService;
+        this.readerService = readerService;
     }
 
     async findAll() {

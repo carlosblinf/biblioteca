@@ -1,13 +1,17 @@
+
+import { injectable } from 'tsyringe';
+
 import { BookSchema, BookUpdate } from "../../db/models/book.model";
 import { ConflictError } from "../../interfaces/ConflictError";
 import { NotFoundError } from "../../interfaces/NotFoundError";
 import { BookRepository } from "../repositories/book.repository";
 
+@injectable()
 export class BookService {
     private bookRepository: BookRepository;
 
-    constructor(){
-        this.bookRepository = new BookRepository();
+    constructor(bookRepository: BookRepository){
+        this.bookRepository = bookRepository;
     }
 
     async findAll() {

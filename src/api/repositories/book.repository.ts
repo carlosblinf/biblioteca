@@ -1,3 +1,5 @@
+import { singleton } from "tsyringe";
+
 import { Book, BookSchema, BookUpdate } from "../../db/models/book.model";
 
 export class BookRepository {

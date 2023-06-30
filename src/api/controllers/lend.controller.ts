@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { injectable } from 'tsyringe';
 
 import { Lend, LendUpdate } from '../../db/models/lend.model';
 import { NotFoundError } from '../../interfaces/NotFoundError';
@@ -6,11 +7,12 @@ import { ParamsWithId } from '../../interfaces/ParamWithId';
 import { QueyWithReaderIdAndBookId } from '../../interfaces/QueyWithReaderIdAndBookId';
 import { LendService } from '../services/lend.service';
 
+@injectable()
 export class LendController {
     private lendService: LendService;
 
-    constructor(){
-        this.lendService = new LendService();
+    constructor(lendService: LendService){
+        this.lendService = lendService;
         this.findAll = this.findAll.bind(this)
         this.makeLend = this.makeLend.bind(this)
         this.findOne = this.findOne.bind(this)

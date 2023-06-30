@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { container } from "tsyringe";
 
 import { BookSchema, BookUpdate } from "../../db/models/book.model";
 import { ParamsWithId } from "../../interfaces/ParamWithId";
@@ -7,7 +8,7 @@ import { BookController } from '../controllers/book.controller';
 
 const router = Router();
 
-const bookController = new BookController()
+const bookController = container.resolve(BookController)
 
 router.get('/', bookController.findAll);
 router.get('/:id', validateRequest({params: ParamsWithId}), bookController.findOne);

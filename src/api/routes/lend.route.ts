@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { container } from "tsyringe";
 
 import { ParamsWithId } from "../../interfaces/ParamWithId";
 import { QueyWithReaderIdAndBookId } from "../../interfaces/QueyWithReaderIdAndBookId";
@@ -7,7 +8,7 @@ import { LendController } from "../controllers/lend.controller";
 
 const router = Router();
 
-const lendController = new LendController()
+const lendController = container.resolve(LendController)
 
 router.get('/', lendController.findAll);
 router.get('/:id', validateRequest({params: ParamsWithId}), lendController.findOne);
