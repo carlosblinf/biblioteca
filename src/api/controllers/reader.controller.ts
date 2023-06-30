@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Book, BookSchema, BookUpdate } from '../../db/models/book.model';
+import { Reader, ReaderSchema, ReaderUpdate } from '../../db/models/reader.model';
 import { NotFoundError } from '../../interfaces/NotFoundError';
 import { ParamsWithId } from '../../interfaces/ParamWithId';
-import { BookService } from '../services/book.service';
+import { ReaderService } from '../services/reader.service';
 
-export class BookController {
-    private bookService: BookService;
+export class ReaderController {
+    private readerService: ReaderService;
 
     constructor(){
-        this.bookService = new BookService();
+        this.readerService = new ReaderService();
         this.findAll = this.findAll.bind(this)
         this.createOne = this.createOne.bind(this)
         this.findOne = this.findOne.bind(this)
@@ -17,46 +17,46 @@ export class BookController {
         this.deleteOne = this.deleteOne.bind(this)
     }
 
-    async findAll(req: Request, res: Response<Book[]>, next: NextFunction) {
+    async findAll(req: Request, res: Response<Reader[]>, next: NextFunction) {
       try {
-        const books = await this.bookService.findAll();
-        res.status(200).json(books);
+        const readers = await this.readerService.findAll();
+        res.status(200).json(readers);
       } catch (error) {
         next(error);
       }
     }
 
-    async createOne(req: Request<object, Book, BookSchema>, res: Response<Book>, next: NextFunction) {
+    async createOne(req: Request<object, Reader, ReaderSchema>, res: Response<Reader>, next: NextFunction) {
       try {
-        const book = await this.bookService.createOne(req.body);
-        res.status(201).json(book);
+        const reader = await this.readerService.createOne(req.body);
+        res.status(201).json(reader);
       } catch (error) {
         next(error);
       }
     }
 
-    async findOne(req: Request<ParamsWithId, Book, object>, res: Response<Book>, next: NextFunction) {
+    async findOne(req: Request<ParamsWithId, Reader, object>, res: Response<Reader>, next: NextFunction) {
       try {
         if (req.params.id === undefined || Number.isNaN(+req.params.id)) {
           res.status(422)
           throw new Error('Unprocessable Entity, valid id no found');
         }
-        const book = await this.bookService.findOne(+req.params.id);
-        res.status(200).json(book);
+        const reader = await this.readerService.findOne(+req.params.id);
+        res.status(200).json(reader);
       } catch (error) {
         next(error);
       }
     }
 
-    async updateOne(req: Request<ParamsWithId, Book, BookUpdate>, res: Response<Book>, next: NextFunction) {
+    async updateOne(req: Request<ParamsWithId, Reader, ReaderUpdate>, res: Response<Reader>, next: NextFunction) {
       try {
         if (req.params.id === undefined || Number.isNaN(+req.params.id)) {
           res.status(422)
           throw new Error('Unprocessable Entity, valid id no found');
         }
         
-        const book = await this.bookService.updateOne(+req.params.id, req.body);
-        res.status(200).json(book);
+        const reader = await this.readerService.updateOne(+req.params.id, req.body);
+        res.status(200).json(reader);
       } catch (error) {
         next(error);
       }
@@ -68,7 +68,7 @@ export class BookController {
           res.status(422)
           throw new Error('Unprocessable Entity, valid id no found');
         }
-        await this.bookService.deleteOne(+req.params.id);
+        await this.readerService.deleteOne(+req.params.id);
         res.status(204).end();
       } catch (error) {
         next(error);
