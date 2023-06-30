@@ -19,7 +19,6 @@ export class ReaderService {
     }
 
     async findOne(id:number) {
-        console.log("************id****************", id)
         const result = await this.readerRepository.findOne(id);
         if (!result) {
             throw new NotFoundError('Reader not found');

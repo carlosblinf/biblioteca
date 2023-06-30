@@ -18,7 +18,8 @@ export class ReaderRepository {
     }
 
     async updateOne(old:Reader, update:ReaderUpdate): Promise<Reader | null> {
-        const saved = await old.set(update);
+        const saved = old.set(update);
+        await saved.save();
         return saved;
     }
 

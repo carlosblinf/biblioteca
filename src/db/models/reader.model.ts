@@ -31,6 +31,7 @@ Reader.init({
     },
 }, {
   sequelize: sequelizeConnection,
+  indexes: [{ unique: true, fields: ['name'] }]
 });
 
 

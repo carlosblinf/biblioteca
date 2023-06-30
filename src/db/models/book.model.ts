@@ -21,7 +21,7 @@ const BookUpdate = z.object({
 
 type BookUpdate = z.infer<typeof BookUpdate>;
 
-class Book extends Model<BookSchema> {}
+class Book extends Model<BookSchema, BookUpdate> {}
 Book.init({
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -43,6 +43,7 @@ Book.init({
     }
 }, {
   sequelize: sequelizeConnection,
+  indexes: [{ unique: true, fields: ['isbn'] }]
 });
 
 

@@ -18,7 +18,8 @@ export class BookRepository {
     }
 
     async updateOne(old:Book, update:BookUpdate): Promise<Book | null> {
-        const saved = await old.set(update);
+        const saved = old.set(update);
+        await saved.save()
         return saved;
     }
 
