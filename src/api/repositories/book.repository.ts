@@ -11,4 +11,9 @@ export class BookRepository {
         const book = await Book.create<Book>(data);
         return book;
     }
+
+    async findOne(id:number): Promise<Book | null> {
+        const book = await Book.findByPk(id);
+        return book;
+    }
 }
