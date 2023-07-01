@@ -5,8 +5,10 @@ import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import swaggerUi from "swagger-ui-express";
 
-import apiRoutes from './api/routes'
+import apiRoutes from './api/routes';
+import swaggerSetup from './docs';
 import { MessageResponse } from './interfaces/MessageResponse';
 import * as middlewares from './middlewares';
 
@@ -25,6 +27,7 @@ app.get('/', async(req: Request, res: Response<MessageResponse>): Promise<Respon
     res.status(200).send({ message: `Welcome to the Library API! \n Endpoints available at http://localhost:${port}/api/` }))
 
 app.use('/api', apiRoutes)
+app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
 // Middleware
 app.use(middlewares.notFound)
