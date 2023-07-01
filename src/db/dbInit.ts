@@ -2,7 +2,7 @@ import { sequelizeConnection } from "./index";
 import { Book } from "./models/book.model";
 import { Reader } from "./models/reader.model";
 
-const isDev = process.env.NODE_ENV === 'test';
+const isDev = process.env.NODE_ENV === 'development';
 
 export default async function connectDB() {
     try {

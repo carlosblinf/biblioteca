@@ -1,31 +1,38 @@
 export default {
   put: {
     tags: ['Lend CRUD operations'],
-    description: 'Update lend',
+    description: 'Return a book lend',
     operationId: 'updateLend',
     parameters: [
       {
-        name: 'id',
-        in: 'path',
+        name: 'bookId',
+        in: 'query',
         schema: {
-          $ref: '#/components/schemas/id',
+          $ref: '#/components/schemas/bookId',
         },
         required: true,
-        description: 'Id of lend to be updated',
+        description: 'Book foreign key id to return',
+      },
+      {
+        name: 'readerId',
+        in: 'query',
+        schema: {
+          $ref: '#/components/schemas/readerId',
+        },
+        required: true,
+        description: 'Reader foreign key id',
       },
     ],
-    requestBody: {
-      content:{
+    responses: {
+      200: {
+        description: 'Book lend return successfully',
+        content:{
           'application/json': {
               schema:{
-                  $ref:'#/components/schemas/Lend'
+                  $ref:'#/components/schemas/LendBookReturn'
               }
           }
       }
-  },
-    responses: {
-      200: {
-        description: 'Lend updated successfully',
       },
       404: {
         description: 'Lend not found',
