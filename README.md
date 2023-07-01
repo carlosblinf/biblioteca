@@ -1,6 +1,6 @@
-# Library backend Api, Node + Express + Typescript + Zod + Sequelize + Mysql2 + Swagger
+# Library Api, Express + Typescript + Zod + Sequelize + Swagger
 
-🚀 Rest Api for the management of a library using Node, Express, Typescript, Zod, Sequelize, Mysql2, Swagger, Jest, Eslint and Prettier.
+🚀 Rest Api for the management of a library build whith DI and IOC paterns using Node, Express, Typescript, Zod, Sequelize, Mysql2, Swagger, Jest, Eslint and Prettier.
 
 Clone this project or using clicking on clone button, and use it to test the project.
 
