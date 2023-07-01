@@ -40,8 +40,9 @@ export default {
         },
         '/api/lends/{id}':{
             ...getLend,
+        },
+        '/api/lends?bookId={bookId}&readerId={readerId}':{
             ...updateLend,
-            ...deleteLend
         }
     }
 }

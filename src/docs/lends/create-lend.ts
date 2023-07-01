@@ -2,7 +2,7 @@
 export default {
     post:{
         tags:['Lend CRUD operations'],
-        description: "Create lend",
+        description: "Make a lend",
         operationId: "createLend",
         parameters:[],
         requestBody: {

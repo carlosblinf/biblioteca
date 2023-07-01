@@ -7,6 +7,16 @@ export default {
                 description:"An id of a entity(Book, Reader, Lend)",
                 example: "1"
             },
+            bookId:{
+                type:'number',
+                description:"Book foreign key id",
+                example: 1
+            },
+            readerId:{
+                type:'number',
+                description:"Reader foreign key id",
+                example: 1
+            },
             Book:{
                 type:'object',
                 properties:{
@@ -173,11 +183,6 @@ export default {
                         description:"Reader's name",
                         example:"Carlos"
                     },
-                    isbn:{
-                        type:"string",
-                        description:"The isbn code of the Reader",
-                        example:"978-1-56619-909-4"
-                    },
                 }
             },
             ReaderResponse:{
@@ -259,27 +264,37 @@ export default {
                     id:{
                         type:'number',
                         description:"Lend identification number",
-                        example:"12"
+                        example: 12
                     },
-                    name:{
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
+                    },
+                    readerId:{
                         type:'string',
-                        description:"Lend's name",
-                        example:"Carlos"
+                        description:"Reader foreign key id",
+                        example: 1
+                    },
+                    dateReturn:{
+                        type:'Date',
+                        description:"Date to return the book lend",
+                        example: null
                     },
                 }
             },
             LendInput:{
                 type:'object',
                 properties:{
-                    name:{
-                        type:'string',
-                        description:"Lend's name",
-                        example:"Carlos"
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
                     },
-                    isbn:{
-                        type:"string",
-                        description:"The isbn code of the Lend",
-                        example:"978-1-56619-909-4"
+                    readerId:{
+                        type:'number',
+                        description:"Reader foreign key id",
+                        example: 1
                     },
                 }
             },
@@ -289,12 +304,22 @@ export default {
                     id:{
                         type:'number',
                         description:"Lend identification number",
-                        example:"12"
+                        example: 1
                     },
-                    name:{
-                        type:'string',
-                        description:"Lend's name",
-                        example:"Carlos"
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
+                    },
+                    readerId:{
+                        type:'number',
+                        description:"Reader foreign key id",
+                        example: 1
+                    },
+                    dateReturn:{
+                        type:'Date',
+                        description:"Date to return the book lend",
+                        example: null
                     },
                     createdAt:{
                         type:"Date",
@@ -308,18 +333,28 @@ export default {
                     }
                 }
             },
-            LendResponseArray:{
-                type:'array',
-                properties:[{
+            LendBookReturn:{
+                type:'object',
+                properties:{
                     id:{
                         type:'number',
                         description:"Lend identification number",
-                        example:"1"
+                        example: 1
                     },
-                    name:{
-                        type:'string',
-                        description:"Lend's name",
-                        example:"John"
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
+                    },
+                    readerId:{
+                        type:'number',
+                        description:"Reader foreign key id",
+                        example: 1
+                    },
+                    dateReturn:{
+                        type:'Date',
+                        description:"Date to return the book lend",
+                        example: "2023-07-01 05:32:42"
                     },
                     createdAt:{
                         type:"Date",
@@ -329,19 +364,64 @@ export default {
                     updateAt:{
                         type:"Date",
                         description:"Date of Updated",
-                        example:null
+                        example:"2023-07-01 05:32:42"
+                    }
+                }
+            },
+            LendResponseArray:{
+                type:'array',
+                properties:[{
+                    id:{
+                        type:'number',
+                        description:"Lend identification number",
+                        example: 12
+                    },
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
+                    },
+                    readerId:{
+                        type:'number',
+                        description:"Reader foreign key id",
+                        example: 1
+                    },
+                    dateReturn:{
+                        type:'Date',
+                        description:"Date to return the book lend",
+                        example: "2023-07-01 05:32:42"
+                    },
+                    createdAt:{
+                        type:"Date",
+                        description:"Date of Created",
+                        example:"2023-06-30 20:32:42"
+                    },
+                    updateAt:{
+                        type:"Date",
+                        description:"Date of Updated",
+                        example:"2023-07-01 05:32:42"
                     }
                 },
                 {
                     id:{
                         type:'number',
                         description:"Lend identification number",
-                        example:"2"
+                        example: 12
                     },
-                    name:{
-                        type:'string',
-                        description:"Lend's name",
-                        example:"Ernesto"
+                    bookId:{
+                        type:'number',
+                        description:"Book foreign key id",
+                        example: 1
+                    },
+                    readerId:{
+                        type:'number',
+                        description:"Reader foreign key id",
+                        example: 1
+                    },
+                    dateReturn:{
+                        type:'Date',
+                        description:"Date to return the book lend",
+                        example: null
                     },
                     createdAt:{
                         type:"Date",
