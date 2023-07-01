@@ -2,14 +2,20 @@ import request from 'supertest';
 
 import app from '../../src/app'
 import { sequelizeConnection } from '../../src/db';
+import { Book } from '../../src/db/models/book.model';
+import { Lend } from '../../src/db/models/lend.model';
 import { Reader } from '../../src/db/models/reader.model';
 
 beforeAll(async () => {
-    await sequelizeConnection.sync({force: true}).catch((err)=>console.log("bad DB connection", err));
-    await Reader.create({name: "John W"});
-    await Reader.create({name: "Carlos"});
-  });
-  
+  await sequelizeConnection.sync({force: true}).catch((err)=>console.log("bad DB connection", err));
+  await Book.create({name: "Learn React", isbn:"305-598-21508-8", available: true});
+  await Book.create({name: "The Truth", isbn:"443-598-21508-8", available: true});
+
+  await Reader.create({name: "John W"});
+  await Reader.create({name: "Carlos"});
+
+  await Lend.create({bookId:1, readerId:1});
+});
   afterAll(async () => {
     await sequelizeConnection.close();
   });

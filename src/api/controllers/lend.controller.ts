@@ -28,13 +28,13 @@ export class LendController {
       }
     }
 
-    async makeLend(req: Request<object, Lend, LendUpdate, QueyWithReaderIdAndBookId>, res: Response<Lend>, next: NextFunction) {
+    async makeLend(req: Request<object, Lend, LendUpdate>, res: Response<Lend>, next: NextFunction) {
       try {
-        if (req.query.readerId === undefined || Number.isNaN(+req.query.readerId) || req.query.bookId === undefined || Number.isNaN(+req.query.bookId)) {
+        if (req.body.readerId === undefined || Number.isNaN(+req.body.readerId) || req.body.bookId === undefined || Number.isNaN(+req.body.bookId)) {
           res.status(422)
           throw new Error('Unprocessable Entity, valid id no found');
         }
-        const lend = await this.lendService.makeLend(+req.query.readerId, +req.query.bookId);
+        const lend = await this.lendService.makeLend(+req.body.readerId, +req.body.bookId);
         res.status(201).json(lend);
       } catch (error) {
         next(error);
