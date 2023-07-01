@@ -12,14 +12,9 @@
     "test": "jest --detectOpenHandles"
   },
   "keywords": [
-    "library",
-    "api",
-    "node",
-    "express",
-    "sequelize",
-    "typescript"
+    "library", "api", "node", "express", "sequelize", "typescript", "zod", "swagger", "jest", "test", "docs"
   ],
-  "author": "carlosblinf",
+  "author": "Carlos Ernesto Brooks Lorie (https://github.com/carlosblinf)",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
